@@ -1,0 +1,60 @@
+Overview:
+
+This is a stored procedure and an associated report. 
+It allows the user to compare the populations between two tables contain the same fields. The join field names need to match.
+The user specifies the tables when executing the sproc, then refreshes the report. The sproc takes 1-2 minutes for a 250k row table.
+The report does the work of summarizing and comparing the data between the two tables.
+
+
+Use Cases:
+
+-Model implementation/QA:
+comparing what was actually submitted to the model vs what we're showing on RPT01.
+-Single Table Summary:
+Quickly see a summary of the data in a table in about 20 seconds (like df.describe() in python).
+-Trend changes:
+Compare two snapshots of a table over time (just use a full outer join on any field in both tables).
+-Query Troubleshooting:
+If your table is suddenly showing dupes, just include a pkid from each table, then compare the distinct values against a more limited join
+
+ 
+
+Instructions:
+
+1) First, run the "table builds" script. There are six tables. If you want to rename them, go ahead and do so, but assuming 
+ you have a different database and schema name, you are still going to need to run a find and replace.
+
+2) Run a find and replace within AutomatedQA_TableComp_JoinSpecific. Replace the old names with your new [db].[schema].[table] 
+ for all six tables
+
+3) Commit the sproc to the server
+
+4) Execute the stored procedure using the following parameters:
+EXEC AutomatedQA_TableComp_JoinSpecific 
+    --What tables do you want to compare?
+        @DBName_A = 'Table A Database'          --required
+        ,@SchemaName_A = 'Table A Schema'   --required
+        ,@TableName_A = 'Table A Name'           --required
+        ,@DBName_B = 'Table B Database'
+        ,@SchemaName_B = 'Table B Schema'
+        ,@TableName_B = 'Table B Name' 
+    --How do you want to join them?
+        ,@JoinField1 = 'LeadID'
+        ,@Join1_Operator = '='
+        ,@JoinField2 = 'DataSourceID'       
+        ,@Join2_Operator = '='               
+        ,@JoinType = 'inner' 
+    --Do you want the sproc to calculate how many rows match exactly for each column? Increases runtime a bit.
+        ,@CalcNumExactMatchesYorN = 'Y'
+    --Are you only interested in comparing specific fields? 
+        ,@IncludeFieldsList = ('FieldA', 'FieldB', 'FieldC')    
+
+        ,@OmitFieldsList = ('FieldA', 'FieldB', 'FieldC')    
+ 
+4) Replace the old table names within the excel data source connections (there are five), the same as in step 2.
+
+5) Refresh the excel report “Automated QA Report”. Refresh under:
+	Data > Queries And Connections > Refresh All. 
+   If you get an error related to copying information from the clipboard, refresh the connections one at a time. I couldn't figure out what causes this, but 
+   it appears to only happen for the "A not in B" and "B not in A" queries. If excel gets stuck in a loop, you can either close it, 
+   reopen it, and try again one at a time, or try to click into any cell immediately after clicking "ok" and copying the cell contents.  

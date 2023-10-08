@@ -1,0 +1,112 @@
+
+  --Table Builds:
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_Tables
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_Tables
+	--(RunDate datetime,
+	-- ComparisonID int identity(1,1), 
+	-- TableA_DB varchar(50),
+	-- TableA_Schema varchar(25),
+	-- TableA varchar(100),
+	-- TableA_Rows int,
+	-- TableA_NullRows int,
+	-- TableA_NullColumns int,
+	-- TableB_DB varchar(50),
+	-- TableB_Schema varchar(25),
+	-- TableB varchar(100),
+	-- TableB_Rows int,
+	-- TableB_NullRows int,
+	-- TableB_NullColumns int,
+	-- InA_MissingFromB int,
+	-- InB_MissingFromA int,
+	-- ParentTableA varchar(250),
+	-- ParentTableB varchar(250))
+
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_Fields
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_Fields
+	--(DateChecked datetime
+	--,ComparisonID int
+	--,ColumnID int identity(1,1)
+	--,DBName varchar(50)
+	--,SchemaName varchar(50)
+	--,TableName varchar(100)
+	--,ColumnName varchar(100)
+	--,IsCategorical int
+	--,OtherIgnore int
+	--,IgnoreReason varchar(250)
+	--,DataType varchar(50)
+	--,IsDate int
+	--,ExactMatches int
+	--,IsMasked int
+	--,CastedFromType varchar(25))
+
+
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_CategoricalSummary
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_CategoricalSummary
+	--(PKID int identity(1,1),
+	-- RunDate datetime,
+	-- ComparisonID int, 
+	-- TableName varchar(100),
+	-- ColumnID int,
+	-- ColumnName varchar(100),
+	-- ColumnValue varchar(250),
+	-- ValueRows int,
+	-- ValuePercent numeric(5,4),
+	-- DateCastRows int,  --for check if non-categorical fields formatted as text
+	-- FloatCastRows int) --for check if non-categorical fields formatted as text
+
+
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_CategoricalComparison
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_CategoricalComparison
+	--(PKID int identity(1,1),
+	-- RunDate datetime,
+	-- ComparisonID int, 
+	-- ColumnID int,
+	-- ColumnName varchar(100),
+	-- ColumnValue varchar(250),
+	-- TableA_Count int,
+	-- TableB_Count int,
+	-- CountDiff int,
+	-- TableA_Percent numeric(5,4),
+	-- TableB_Percent numeric(5,4),
+	-- PercentDiff numeric(5,4))
+
+ 
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_NumericalSummary
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_NumericalSummary
+	--(PKID int identity(1,1),
+	-- RunDate datetime,
+	-- ComparisonID int, 
+	-- ColumnID int,
+	-- TableName varchar(100),
+	-- ColumnName varchar(100),
+	-- [IsDate] int,
+	-- DistinctValues int,
+	-- Nulls int,
+	-- NonNulls int,
+	-- ColMin float,
+	-- ColMax float,
+	-- ColMean float)
+
+	--DROP TABLE Sandbox2.adc.temp_AutomatedQA_NumericalComparison
+	--CREATE TABLE Sandbox2.adc.temp_AutomatedQA_NumericalComparison
+	--(PKID int identity(1,1),
+	-- RunDate datetime,
+	-- ComparisonID int, 
+	-- ColumnID int,
+	-- ColumnName varchar(100),
+	-- IsDate int,
+	-- TableA_DistVal int,
+	-- TableB_DistVal int,
+	-- DistVal_PercDiff float,
+	-- TableA_Nulls int,
+	-- TableB_Nulls int,
+	-- Nulls_PercDiff float,
+	-- TableA_Min int,
+	-- TableB_Min int,
+	-- Min_PercDiff float,
+	-- TableA_Max int,
+	-- TableB_Max int,
+	-- Max_PercDiff float,
+	-- TableA_Mean float,
+	-- TableB_Mean float,
+	-- Mean_PercDiff float)
